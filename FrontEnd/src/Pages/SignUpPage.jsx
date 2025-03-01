@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { animate, motion } from 'framer-motion'
-import { Lock, Mail, User } from 'lucide-react';
+import { Loader, Lock, Mail, User } from 'lucide-react';
 import Input from '../components/Input';
 import { Link } from 'react-router-dom';
 import PasswordstrengthMeter from '../components/PasswordStrengthMeter';
@@ -10,9 +10,15 @@ const SignUpPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUp = (e) => {
         e.preventDefault();
+        setIsLoading(true);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
     }
 
     return (
@@ -58,9 +64,9 @@ const SignUpPage = () => {
                     focus:ring-offset-gray-900 transition duration-200'
                     whileHover={{scale:1.00 }}
                     whileInView={{scale:0.98}}
-                    type='submit'
-                    >
-                        Sign Up
+                    disabled={isLoading}
+                      >
+                      {isLoading ? <Loader className='size-6 animate-spin mx-auto'/> :"Sign Up"}
                     </motion.button>
 
                 </form>
